@@ -1,0 +1,513 @@
+  <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.104.2">
+    <title>Publisher</title>
+    <link href="https://oeg-upm.github.io/helio-publisher/src/main/resources/static/css/favicons/helio-favicon-32x32.png" rel="shortcut icon" type="image/png">
+  
+  <!-- Boostrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+    </style>
+
+    <!-- Custom styles for this template -->
+    <link href="./css/dashboard.css" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">
+    <img src="https://oeg-upm.github.io/helio-publisher/src/main/resources/static/img/favicon_io/favicon-32x32.png" alt="Helio logo" style="margin-top:5px;"/>
+  </a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3 sidebar-sticky">
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#">
+              <span data-feather="home" class="align-text-bottom"></span>
+              Domains
+            </a>
+          </li>
+        </ul>
+        <hr/>
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted text-uppercase">
+          <span>Data sources</span>
+        </h6>
+
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link active" href="/endpoints">
+             <i class="bi bi-columns"></i>
+              Endpoints
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/virtual_endpoints">
+              <i class="bi bi-columns-gap"></i>
+              Virtual Endpoints
+            </a>
+          </li>
+        </ul>
+        <hr/>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Endpoints available to publish data</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-success" id="addNewEndpoint" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-plus-circle"></i> Add</button>
+           
+          </div>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped align-middle" id="dtBasicExample">
+          <thead>
+             <tr style="text-align:center;">
+                <th class="th-sm" style="text-align:center;">Type</th>
+                <th class="th-sm" style="text-align:center;">Name</th>
+                <th class="th-sm" style="text-align:center;">Format</th>
+                <th class="th-sm" style="text-align:center;">Status</th>
+                <th class="th-sm" style="text-align:center;">#</th>
+             </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table>
+        
+      </div>
+    </main>
+  </div>
+</div>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Tables-->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.css"/>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.12.1/datatables.min.js"></script>
+
+    <!-- MODALS -->
+     <!-- Add endpoint Modal -->
+            <div class="modal fade"  id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-xl">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Endpoint's data</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <!-- Modal Body-->
+                    
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label for="endpointName">Name</label>
+                          <input type="text" class="form-control" id="endpointName" aria-describedby="endpointNameHelp" placeholder="Enter a descriptive name for this endpoint">
+                          <small id="endpointNameHelp" class="form-text text-muted"></small>
+                          <input type="text" class="form-control" id="endpointId" style="display : none">
+                        </div>
+                        <div class="col-md-12" style="margin-top: 10px;">
+                          <label for="endpointType">Type:</label>
+                          <select class="form-select" id="endpointType" onchange="showEndpointTypeInputs()">
+                                <option value="DEFAULT" class="selected disabled">Endpoint's type</option>
+                                <option value="Link" >Link</option>
+                                <option value="Triplestore" >Triplestore resources</option>
+                                <option value="SPARQL" >SPARQL query</option>
+                          </select>
+                          
+
+                        </div>
+                        </div>
+                        <div class="row" id="endpointData" style="display: none;  margin-top:10px;">
+                        <div class="col-md-8 ms-auto">
+                            <label for="endpointLink">Link:</label>
+                            <input  type="text" class="form-control" id="endpointLink" placeholder="Enter the link of the endpoint">
+                        </div>
+                        <div class="col-md-4 ms-auto">
+                          <label for="endpointFormat">Format:</label>
+                          <select class="form-select" id="endpointFormat">
+                                <option value="JSONLD11">JSONLD11</option>
+                                <option value="RDFXML">RDFXML</option>
+                                <option value="N3">N3</option>
+                                <option value="NT">NT</option>
+                                <option value="NTRIPLES">NTRIPLES</option>
+                                <option value="JSON">JSON</option>
+                                <option value="TTL">TTL</option>
+                                <option value="TSV">TSV</option>
+                                <option value="TURTLE" default>TURTLE</option>
+                                <option value="JSONLD">JSONLD</option>
+                                <option value="CSV">CSV</option>
+                                <option value="NTRIPLE">NTRIPLE</option>
+                                <option value="XML">XML</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="row" id="endpointSecurity" style="display: none; margin-top:10px;">
+                        <div class="col-md-6 ms-auto">
+                          <label for="endpointUsername">Username:</label>
+                          <input  type="text" class="form-control" id="endpointUsername" placeholder="Enter a valid username for the triplestore">
+                        </div>
+                        <div class="col-md-6 ms-auto">
+                          <label for="endpointPassword">Password:</label>
+                          <input  type="password" class="form-control" id="endpointPassword" placeholder="Enter a valid password for the triplestore">
+                        </div>
+                      </div>
+                       <div class="row" id="endpointSPARQL" style="display: none; margin-top:10px;">
+                        <div class="col-md-12 ms-auto">
+                          <label for="endpointSPARQL">SPARQL query:</label>
+                          <textarea class="form-control" id="endpointSPARQL" rows="13"></textarea>
+                        </div>
+                      </div>
+                      <div class="row" id="creatingEndpointFeedback" style="display: none; margin-top:10px;">
+                        <div class="col-md-12 ms-auto">
+                            <p id=creatingEndpointFeedbackText style="color: red"> </p>
+                        </div>
+                      </div>
+                    </div>
+                      
+                    
+                    <!-- /Modal body-->
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeModal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addEndpoint">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+         <!-- /Add endpoint-->
+         <!-- Test modal -->
+           <div class="modal fade"  id="testModal" tabindex="-1" aria-labelledby="testModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-xl">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <div class="spinner-grow text-primary" role="status" id="endpointTestSpinner" style="display:none;">
+                        <span class="sr-only"></span>
+                      </div>
+
+                      <h5 class="modal-title">Data from endpoint</h5>
+                      
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <div class="row" style="display: ""; margin-top:10px;">
+                        <div class="col-md-12 ms-auto">
+                          <textarea class="form-control" id="endpointTestData" rows="13"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+         <!--/test modal-->
+  </body>
+</html>
+<script>
+  document.getElementById("addEndpoint").addEventListener("click", createEndpoint);
+  document.getElementById("addNewEndpoint").addEventListener("click", clearForm);
+
+    function testEndpoint(id){
+        document.getElementById("endpointTestData").value = "";
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status >= 200 && xmlHttp.status < 300){
+                console.log(xmlHttp.responseText);
+                document.getElementById("endpointTestData").value = xmlHttp.responseText;
+
+            }else if(xmlHttp.readyState == 4 ){
+              $("#creatingEndpointDataFeedback").css("display", "");
+              console.log("error!");
+              var p = xmlHttp.responseText;
+              console.log(p);
+              var text = JSON.parse(p).message.replace(/^.*EndpointFormatCompatibilityException:\s*/i, '');     
+              document.getElementById("endpointTestData").value = text;
+            }
+           $("#endpointTestSpinner").css("display", "none");
+           listEndpoints();
+        }; 
+        xmlHttp.open("GET", "/api/endpoints/test/"+id, true); // true for asynchronous 
+        xmlHttp.send(null);
+        $("#endpointTestSpinner").css("display", "");
+        
+    }
+
+    function clearForm(){
+      document.getElementById("endpointId").value = "";
+      document.getElementById("endpointName").value = "";
+      document.getElementById("endpointLink").value = "";
+      $('#endpointType option[value="DEFAULT"]').attr("selected",true);
+      document.getElementById("endpointFormat").value = "TURTLE";
+      showEndpointTypeInputs();
+    }
+    function showEndpointTypeInputs(){
+      $("#creatingEndpointFeedback").css("display", "none");
+      $("#endpointData").css("display", "none");
+      $("#endpointSecurity").css("display", "none");
+      $("#endpointSPARQL").css("display", "none");
+      var endpointType =  document.getElementById("endpointType").value;
+      if(endpointType == "Triplestore"){
+        $("#endpointData").css('display', '');
+        $("#endpointSecurity").css('display', '');
+      }
+      if(endpointType == "Link"){
+        $("#endpointData").css('display', '');
+      }
+      if(endpointType == "SPARQL"){
+        $("#endpointData").css('display', '');
+        $("#endpointSecurity").css('display', '');
+        $("#endpointSPARQL").css('display', '');
+      }
+
+    }
+    function isEmpty(str){
+       return (!str || str.length === 0 );
+    }
+
+    function validateEndpoint(json){
+      if(isEmpty(json.name)){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Provide a name for this endpoint";
+         $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      
+      if(isEmpty(json.url)){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Provide a URL for this endpoint";
+        $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      if(json['@type']!="Link" && json['@type']!="Triplestore" && json['@type']!="SPARQL"){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Choose a valid type of endpoint";
+        $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      if(isEmpty(json['@type'])){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Choose a valid type of endpoint";
+        $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      if(isEmpty(json['format'])){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Choose a valid format for the endpoint";
+        $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      if(json['@type']=="SPARQL" && isEmpty(json.query)){
+        document.getElementById("creatingEndpointFeedbackText").innerHTML = "Provide a non-empty SPARQL query";
+        $("#creatingEndpointFeedback").css("display", "");
+        return false;
+      }
+      return true;
+    }
+
+    function createEndpoint(){
+      $("#creatingEndpointFeedback").css("display", "none");
+      var id = document.getElementById("endpointId").value;
+        var json = '{'
+          + ' "@type" : "'+document.getElementById("endpointType").value+'", '
+          + ' "name" : "'+document.getElementById("endpointName").value+'", '
+          + ' "url" : "'+document.getElementById("endpointLink").value+'", ';
+          
+          var username = document.getElementById("endpointUsername").value;
+          if(username)
+            json = json + ' "username" : "'+username+'", ';
+          var passw = document.getElementById("endpointPassword").value;
+          if(passw)
+            json= json + ' "password" : "'+passw+'", ';
+          var query = document.getElementById("endpointSPARQL").value;
+          if(query)
+            json= json + ' "query" : "'+query+'" ';
+          
+          json= json + ' "format" : "'+document.getElementById("endpointFormat").value+'" }';
+
+        var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status >= 200 && xmlHttp.status < 300){
+                        listEndpoints();
+                        document.getElementById("closeModal").click();
+                    }else if(xmlHttp.readyState == 4){
+                        var p = xmlHttp.responseText;
+                        var text = p.replace(/^.*Exception:\s*/i, '').replace(/"}\s*$/i,'');     
+                        console.log("error!");
+                        console.log(text);
+                        document.getElementById("creatingEndpointFeedbackText").innerHTML =text;
+                        $("#creatingEndpointFeedback").css('display', '');
+                    }     
+                } 
+        console.log(json);   
+        var valid = validateEndpoint(JSON.parse(json));
+        if(valid){
+          var endpoint = "/api/endpoints";
+          if(id)
+            endpoint = endpoint+"/"+id
+          xmlHttp.open("POST", endpoint, true); // true for asynchronous 
+          xmlHttp.send(json);
+        }
+    }
+    
+
+    function chooseEndpoint(id){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status >= 200 && xmlHttp.status < 300){
+                var json = JSON.parse(xmlHttp.responseText);
+                console.log(json);
+
+                document.getElementById("endpointId").value =json.id;
+                document.getElementById("endpointType").value = json['@type'];
+                showEndpointTypeInputs();
+                document.getElementById("endpointName").value = json.name;
+                document.getElementById("endpointLink").value = json.url;
+                document.getElementById("endpointFormat").value = json.format;
+
+                if(json.username)
+                  document.getElementById("endpointUsername").value = json.username;
+                if(json.password)
+                  document.getElementById("endpointPassword").value = json.password;
+                if(json.sparql)
+                  document.getElementById("endpointSPARQL").value = json.sparql;
+      
+            }
+        }; 
+        xmlHttp.open("GET", "/api/endpoints/"+id, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+    function removeEndpoint(id){
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.onreadystatechange = function() { 
+            if (xmlHttp.readyState == 4 && xmlHttp.status >= 200 && xmlHttp.status < 300){
+                console.log("removed");
+                console.log(xmlHttp.responseText);
+            }
+            listEndpoints();
+        }; 
+        xmlHttp.open("DELETE", "/api/endpoints/"+id, true); // true for asynchronous 
+        xmlHttp.send(null);
+    }
+
+     function listEndpoints(){
+                var xmlHttp = new XMLHttpRequest();
+                xmlHttp.onreadystatechange = function() { 
+                    if (xmlHttp.readyState == 4 && xmlHttp.status >= 200 && xmlHttp.status < 300){
+                        var parsedJSON = JSON.parse(xmlHttp.responseText);
+                        console.log(parsedJSON);
+                        document.getElementById("tableBody").innerHTML = "";
+                        for (var i=0;i<parsedJSON.length;i++) {
+                            var json = parsedJSON[i];
+                            var tdClass = "";
+                            if(json.status.toLowerCase()==="valid")
+                              tdClass = "table-success";
+                            if(json.status.toLowerCase()==="invalid")
+                              tdClass = "table-danger";
+                            var newRow = "<tr style=\"text-align: center;\" class=\""+tdClass+"\"><td>"+json['@type']+"</td><td>"+json.name+"</td><td>"+json.format+"</td><td >"+json.status+"</td><td><button type=\"button\" class=\"btn btn-sm btn-info\" data-bs-toggle=\"modal\" data-bs-target=\"#testModal\" onclick=\"testEndpoint('"+json.id+"')\" style=\"margin-right:5px\"> <i class=\"bi bi-play\"></i> </button><button type=\"button\" class=\"btn btn-sm btn-warning\" data-bs-toggle=\"modal\" data-bs-target=\"#exampleModal\" onclick=\"chooseEndpoint('"+json.id+"')\" style=\"margin-right:5px\"> <i class=\"bi bi-pencil-fill\"></i> </button><button onclick=\"removeEndpoint('"+json.id+"')\" type=\"button\" class=\"btn btn-sm btn-danger\"><i class=\"bi bi-trash3-fill\"></i></button></td></tr>\n"; 
+
+                            var html = document.getElementById("tableBody").innerHTML;
+                            document.getElementById("tableBody").innerHTML = html+newRow;
+                        }
+                       
+                    }else if(xmlHttp.readyState == 4){
+                        var p = xmlHttp.responseText;
+                        var text = p.replace(/^.*Exception:\s*/i, '').replace(/"}\s*$/i,'');
+                        alert("2>"+text);
+                    }     
+                }    
+                xmlHttp.open("GET", "/api/endpoints", true); // true for asynchronous 
+                xmlHttp.send(null);
+            }
+
+</script>
+<script type="text/javascript">
+    listEndpoints();
+    $(document).ready(function () {
+                $('#dtBasicExample').DataTable({
+                    "order": [[1, 'desc']],
+                    "pagingType": "simple",
+                    "searching": true
+                });
+                $('.dataTables_length').addClass('bs-select');
+            });
+    
+</script>

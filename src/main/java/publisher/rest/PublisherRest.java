@@ -46,7 +46,7 @@ public class PublisherRest {
 	}
 	@SuppressWarnings("unchecked")
 	private static void runPublishMode() {
-		Service http = Service.ignite().port(9000).threadPool(20);
+		Service http = Service.ignite().port(9002).threadPool(20);
 		http.get("/*/", RouteController.publish);
 		http.get("/*", RouteController.publish);
 		http.get("*", RouteController.publish);

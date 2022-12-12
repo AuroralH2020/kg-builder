@@ -138,7 +138,7 @@ public class TriplestoreDescribe extends Link {
 
 	private String changeURL(Request request) {
 		String finalUrl = request.url();
-		if(PublisherRest.CONFIG_MODE && request.queryParams("route")!=null)
+		if(request.queryParams("route")!=null)
 			finalUrl = request.queryParams("route");
 		if(aliasURL!=null && publishedURL!=null)
 			finalUrl = finalUrl.replace(publishedURL, aliasURL);

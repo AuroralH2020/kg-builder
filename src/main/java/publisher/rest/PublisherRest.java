@@ -7,7 +7,8 @@ import static spark.Spark.get;
 import static spark.Spark.path;
 import static spark.Spark.post;
 import static spark.Spark.staticFileLocation;
-
+import static spark.Spark.port;
+import java.io.IOException;
 import java.util.Arrays;
 
 import publisher.rest.controller.AggregatedEndpointController;
@@ -29,24 +30,63 @@ import spark.Service;
 public class PublisherRest {
 
 	// -- Main
-	public static boolean CONFIG_MODE = true;
+	public static final String CONFIG_PORT_ARGUMENT = "-config.port=";
+	public static final String PUBLISHER_PORT_ARGUMENT = "-publisher.port=";
+	public static final String DEMON_ARGUMENT = "-d";
+	public static Boolean demon = false;
+	public static int CONFIG_PORT = 4567;
+	public static int PUBLISHER_PORT = 9000;
 
 
 	public static void main(String[] args) {
-		Arrays.asList(args).parallelStream().forEach(elem -> System.out.println(elem));
 		// Configuration
-		configure();
-
-		runConfigurationMode();
-		runPublishMode();
-
-
+		configure(args);
+		// Run services
+		runConfigurationMode(CONFIG_PORT);
+		runPublishMode(PUBLISHER_PORT);
+		// Open browser
+		try {
+			openBrowsers("http://localhost:"+CONFIG_PORT);
+			openBrowsers("http://localhost:"+PUBLISHER_PORT);
+			System.out.println("Configuration service running on "+"http://localhost:"+CONFIG_PORT);
+			System.out.println("Publisher service running on "+"http://localhost:"+PUBLISHER_PORT);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		// Mock data
 		StaticPersistence.updateMockData();
-
 	}
+	
+	public static void openBrowsers(String url) throws IOException {
+		String os = System.getProperty("os.name").toLowerCase();
+		if(os.indexOf("win") >= 0) {
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("rundll32 url.dll,FileProtocolHandler " + url);
+		}else if(os.indexOf("mac") >= 0) {
+			Runtime rt = Runtime.getRuntime();
+			rt.exec("open " + url);
+		}else if(os.indexOf("nix") >=0 || os.indexOf("nux") >=0) {
+			Runtime rt = Runtime.getRuntime();
+			String[] browsers = { "google-chrome", "firefox", "mozilla", "epiphany", "konqueror",
+			                                 "netscape", "opera", "links", "lynx" };
+			 
+			StringBuffer cmd = new StringBuffer();
+			for (int i = 0; i < browsers.length; i++)
+			    if(i == 0)
+			        cmd.append(String.format(    "%s \"%s\"", browsers[i], url));
+			    else
+			        cmd.append(String.format(" || %s \"%s\"", browsers[i], url)); 
+			    // If the first didn't work, try the next browser and so on
+
+			rt.exec(new String[] { "sh", "-c", cmd.toString() });
+		}else {
+			System.out.println("No valid os was detected");
+		}
+	}
+	
 	@SuppressWarnings("unchecked")
-	private static void runPublishMode() {
-		Service http = Service.ignite().port(9002).threadPool(20);
+	private static void runPublishMode(int port) {
+		Service http = Service.ignite().port(port).threadPool(20);
 		http.get("/*/", RouteController.publish);
 		http.get("/*", RouteController.publish);
 		http.get("*", RouteController.publish);
@@ -70,8 +110,8 @@ public class PublisherRest {
 
 	}
 	@SuppressWarnings("unchecked")
-	private static void runConfigurationMode() {
-
+	private static void runConfigurationMode(int port) {
+		port(port);
 		staticFileLocation("");
 		get("", Management.endpoints);
 		get("/", Management.endpoints);
@@ -152,12 +192,26 @@ public class PublisherRest {
 
 	}
 
-	private static void configure() {
+	private static void configure(String[] args) {
 		System.out.println(LOGO);
-		System.out.println("CONFIG MODE: " + CONFIG_MODE);
 		// create ViewRenderer
 		ViewRendererController.init();
-
+		try {
+		for(int index=0; index < args.length; index++) {
+			String argument = args[index];
+			if(argument!=null && !argument.isBlank()) {
+				if(argument.contains(PUBLISHER_PORT_ARGUMENT)) {
+					PUBLISHER_PORT = Integer.valueOf(argument.replace(PUBLISHER_PORT_ARGUMENT, ""));
+				}else if(argument.contains(CONFIG_PORT_ARGUMENT)) {
+					CONFIG_PORT = Integer.valueOf(argument.replace(CONFIG_PORT_ARGUMENT, ""));
+				}
+				demon = argument.contains(DEMON_ARGUMENT);
+			}
+		}
+		}catch(Exception e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
 	}
 
 	private static final String LOGO = "\n" + "  ██╗  ██╗███████╗██╗     ██╗ ██████╗                                 \n"

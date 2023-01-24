@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.JsonObject;
 
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 public class AggregatedFactory {
 

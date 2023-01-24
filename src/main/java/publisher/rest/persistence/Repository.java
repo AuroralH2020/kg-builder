@@ -73,14 +73,14 @@ public class Repository<T> {
 	public List<T> retrieve() {
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 			session.beginTransaction();
-			
+
 			return session.createQuery(queryList, innerClass).list();
 		} catch (Exception e) {
 			throw new RepositoryException(e.getMessage());
 		}
 	}
 
-	
+
 
 	private String concat(String... strings) {
 		StringBuilder br = new StringBuilder();
@@ -103,9 +103,9 @@ public class Repository<T> {
 			throw new RepositoryException(e.getMessage());
 		}
 	}
-	
-	
-	
+
+
+
 	public T update(T object) {
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 			Transaction transaction = session.beginTransaction();
@@ -118,12 +118,12 @@ public class Repository<T> {
 			throw new RepositoryException(e.getMessage());
 		}
 	}
-	
+
 	public void delete(String id) {
 		Optional<T> object = retrieve(id);
 		delete(object.get());
 	}
-	
+
 	public void delete(T object) {
 		try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
 			Transaction transaction = session.beginTransaction();

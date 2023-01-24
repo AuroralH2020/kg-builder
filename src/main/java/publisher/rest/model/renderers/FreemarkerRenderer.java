@@ -13,9 +13,10 @@ import freemarker.template.Configuration;
 import freemarker.template.Version;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
+import publisher.Publisher;
 import publisher.rest.exception.InternalServiceException;
 import publisher.rest.exception.RenderTemplateException;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -59,6 +60,7 @@ public class FreemarkerRenderer extends AbstractRenderer {
 
 			result = engine.render(new ModelAndView(model, template));
 		}catch(Exception e) {
+			System.out.println(e.getMessage());
 			throw new RenderTemplateException(e.getMessage());
 		}
 		return result;

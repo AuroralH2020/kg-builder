@@ -3,6 +3,7 @@ package publisher.rest.model.endpoint.aggregated;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryFactory;
@@ -21,7 +22,6 @@ import publisher.rest.model.endpoint.AbstractEndpoint;
 import publisher.rest.model.endpoint.Endpoint;
 import publisher.rest.model.endpoint.EndpointFormat;
 import publisher.rest.model.endpoint.EndpointStatus;
-import publisher.rest.model.endpoint.Link;
 import publisher.rest.model.endpoint.TriplestoreSparql;
 import spark.Request;
 import sparql.streamline.core.Sparql;
@@ -64,14 +64,14 @@ public class DistributedSparql extends JsonWrapper{
 	@Override
 	public String testEndpoint(Request request) throws EndpointFormatCompatibilityException {
 		try {
-			
+
 			Query query = QueryFactory.create("SELECT * WHERE { ?s ?p ?o }");
 			EndpointFormat formatProvided = EndpointFormat.JSON;
 			ResultsFormat queryResultsFormat = EndpointFormat.retrieveSPARQLFormat(formatProvided.toString());
 			Model model = ModelFactory.createDefaultModel();
 			this.endpoints.forEach(endpoint -> model.read(new ByteArrayInputStream(endpoint.testData(request).getBytes()), null, endpoint.getFormat().toString()));
 			String data = new String(Sparql.queryModel(query.toString(), model, queryResultsFormat, null).toByteArray());
-			
+
 			EndpointFormat.isFormatCompliant(data, formatProvided); // throws exeception
 			this.status = EndpointStatus.VALID;
 			return data;
@@ -100,13 +100,13 @@ public class DistributedSparql extends JsonWrapper{
 			throw new EndpointRemoteDataException("SPARQL query are expected to be encoded in GET requests or in the body of a POST request.");
 
 		Query queryBuilt = QueryFactory.create(query);
-		List<String> endpointsURls = this.endpoints.parallelStream().map(end -> end.getUrl()).toList();
+		List<String> endpointsURls = this.endpoints.parallelStream().map(end -> end.getUrl()).collect(Collectors.toList());
 		if(queryBuilt.isAskType() || queryBuilt.isSelectType()) {
 			query = rewriteQuery(query, endpointsURls);
 		}else if(queryBuilt.isConstructType() || queryBuilt.isSelectType()) {
 			throw new EndpointRemoteDataException("SPARQL CONSTRUCT or DESCRIBE are not currently supported");
 		}
-		
+
 		EndpointFormat formatProvided = EndpointFormat.retrieveFromSPARQLMime(request.headers("Accept"), queryBuilt);
 		checkFormatCompatibility(queryBuilt, formatProvided);
 
@@ -121,7 +121,7 @@ public class DistributedSparql extends JsonWrapper{
 		}
 	}
 
-	
+
 	private String rewriteQuery(String parsedQuery, List<String> endpoints) {
 		int firstCut = parsedQuery.indexOf('{');
 		int secondCut = parsedQuery.lastIndexOf('}');

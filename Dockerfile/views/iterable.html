@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Network</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 90%;
+        height: 400px;
+        border: 1px solid lightgray;
+      }
+    </style>
+  </head>
+  <body>
+  	<#include "./describe-rdf.ftl"/>
+  	<div id="mynetwork"></div>
+
+		
+      	
+    
+    <script type="text/javascript">
+      // create an array with nodes
+    	<#assign nodes = []>
+        var nodes = new vis.DataSet([
+      	<#list triplets as triplet>
+      	<#if nodes?seq_contains(triplet[0])?string("yes", "no")=="no">
+        	{ id : "${triplet[0]}", label: "${triplet[0]}" },
+             <#assign nodes = nodes + [triplet[0]]>
+        <#elseif triplet[4]=="dp" && nodes?seq_contains(triplet[2])?string("yes", "no")=="no">
+        {  id : ${triplet[2]}, label: ${triplet[2]}, shape:"box", color: "#C2FABC" },
+        	<#assign nodes = nodes + [triplet[2]]>
+        <#elseif triplet[4]=="op" && nodes?seq_contains(triplet[2])?string("yes", "no")=="no">
+        { id : "${triplet[2]}", label: "${triplet[2]}" },
+        <#assign nodes = nodes + [triplet[2]]>
+        </#if>
+        </#list>
+      ]);
+
+      // create an array with edges
+      var edges = new vis.DataSet([
+        { from: 1, to: 3, label: "property"},
+        <#list triplets as triplet>
+        <#if triplet[4]=="dp">
+        	{ from : "${triplet[0]}", to: ${triplet[2]}, label: "${triplet[1]}" },
+        <#else>
+	        { from : "${triplet[0]}", to: "${triplet[2]}", label: "${triplet[1]}" },
+        </#if>
+        </#list>
+      ]);
+
+      function addNode() {
+        var newId = (Math.random() * 1e7).toString(32);
+        nodes.add({ id: newId, label: "I'm new!" });
+        nodeIds.push(newId);
+      }
+
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {};
+      var network = new vis.Network(container, data, options);
+      network.on( 'click', function(properties) {
+	    var ids = properties.nodes;
+	    var clickedNodes = nodes.get(ids);
+	    console.log('clicked nodes:', clickedNodes);
+	});
+    </script>
+  </body>
+</html>

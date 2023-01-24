@@ -19,7 +19,7 @@ import sparql.streamline.core.SparqlEndpointConfiguration;
 @Entity
 @JsonInclude(Include.NON_NULL)
 public class TriplestoreSparql extends Link{
-	
+
 	@JsonProperty
 	protected String username;
 	@JsonIgnore
@@ -102,11 +102,11 @@ public class TriplestoreSparql extends Link{
 			throw new EndpointRemoteDataException("SPARQL query are expected to be encoded in GET requests or in the body of a POST request.");
 		return query;
 	}
-	
+
 	@Override
 	public String testData(Request request) throws EndpointRemoteDataException {
 		try {
-			
+
 			Query queryBuilt = QueryFactory.create( "SELECT * { ?s ?p ?o }");
 			SparqlEndpoint endpoint = new SparqlEndpoint(new SparqlEndpointConfiguration(this.url, null, username, password));
 			ResultsFormat queryResultsFormat = EndpointFormat.retrieveSPARQLFormat(EndpointFormat.JSON.toString());

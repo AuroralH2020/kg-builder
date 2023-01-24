@@ -45,10 +45,12 @@ public class Link extends AbstractEndpoint {
 	}
 
 
+	@Override
 	public String getUrl() {
 		return url;
 	}
 
+	@Override
 	public void setUrl(String url) {
 		try {
 			new URL(url);

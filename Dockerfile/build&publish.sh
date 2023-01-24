@@ -6,9 +6,9 @@ USAGE="$(basename "$0") [ -h ] [ -e env ]
       -e  environment [ dev (default), prod, ... ]"
 
 # Default configuration
-ENV=latest
+ENV=0.0.1
 REGISTRY=acimmino
-IMAGE_NAME=helio-publisher
+IMAGE_NAME=testing
 PLATFORMS=linux/amd64,linux/arm64,linux/arm/v7
 
 # Maven using docker / local

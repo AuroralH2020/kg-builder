@@ -5,9 +5,9 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import publisher.rest.model.endpoint.EndpointFormat;
 import publisher.rest.model.endpoint.EndpointStatus;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 @Entity
 @JsonInclude(Include.NON_NULL)
@@ -55,7 +55,7 @@ public abstract class AbstractDatasource implements Datasource{
 		super();
 	 }
 
-	
+
 	public String getName() {
 		return name;
 	}
@@ -87,7 +87,7 @@ public abstract class AbstractDatasource implements Datasource{
 	public String setId(String id) {
 		return this.id = id;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -102,7 +102,7 @@ public abstract class AbstractDatasource implements Datasource{
 		AbstractDatasource other = (AbstractDatasource) obj;
 		return Objects.equals(id, other.id);
 	}
-	
+
 	@Override
 	public String toString() {
 		return DAOService.toJson(this);

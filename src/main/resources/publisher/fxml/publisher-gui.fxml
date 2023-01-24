@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="publisher.fxml.PublisherGUIController">
+   <children>
+      <SplitPane dividerPositions="0.19974874371859297" maxWidth="600.0" orientation="VERTICAL" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <TextField fx:id="configurationPort" disable="true" layoutX="333.0" layoutY="12.0" prefHeight="26.0" prefWidth="56.0" text="4567" AnchorPane.bottomAnchor="39.0" AnchorPane.rightAnchor="209.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="publicationPort" disable="true" layoutX="333.0" layoutY="40.0" prefHeight="26.0" prefWidth="56.0" text="9000" AnchorPane.bottomAnchor="11.0" AnchorPane.rightAnchor="209.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="223.0" layoutY="13.0" prefHeight="26.0" prefWidth="110.0" text="Configuration port:" AnchorPane.bottomAnchor="38.0" AnchorPane.rightAnchor="265.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font></Label>
+                  <Label layoutX="237.0" layoutY="43.0" prefHeight="17.0" prefWidth="96.0" text="Publication port:" AnchorPane.bottomAnchor="17.0" AnchorPane.rightAnchor="265.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font></Label>
+                  <Button fx:id="startStopButton" layoutX="457.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#handleStartStop" prefHeight="52.0" prefWidth="127.0" text="STOP" AnchorPane.bottomAnchor="13.0" AnchorPane.rightAnchor="14.0">
+                     <font>
+                        <Font name="Arial" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="openConfigurationServiceButton" layoutX="397.0" layoutY="12.0" mnemonicParsing="false" onMouseClicked="#openConfigurationService" text="Open" AnchorPane.bottomAnchor="41.0" AnchorPane.rightAnchor="151.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </Button>
+                  <ImageView fitHeight="68.0" fitWidth="64.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="7.0">
+                     <image>
+                        <Image url="@android-chrome-192x192.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="332.0" prefWidth="701.0">
+               <children>
+                  <TextArea fx:id="logScreen" layoutX="7.0" layoutY="4.0" prefHeight="306.0" prefWidth="585.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font name="Arial" size="13.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

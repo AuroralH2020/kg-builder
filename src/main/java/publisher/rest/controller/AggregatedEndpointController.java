@@ -10,9 +10,9 @@ import publisher.rest.exception.InvalidRequestException;
 import publisher.rest.model.endpoint.EndpointStatus;
 import publisher.rest.model.endpoint.aggregated.AggregatedFactory;
 import publisher.rest.model.endpoint.aggregated.JsonWrapper;
-import publisher.service.AggregatedEndpointService;
-import publisher.service.DAOService;
-import publisher.service.RouteService;
+import publisher.rest.service.AggregatedEndpointService;
+import publisher.rest.service.DAOService;
+import publisher.rest.service.RouteService;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -70,7 +70,7 @@ public class AggregatedEndpointController {
 						routeService.update(route);
 					}
 				});
-			
+
 			service.delete(id);
 			response.status(200);
 		} else {
@@ -78,9 +78,9 @@ public class AggregatedEndpointController {
 		}
 		return "";
 	};
-	
 
-	
+
+
 
 	public static final Route test = (Request request, Response response) -> {
 		String id = fetchId(request);

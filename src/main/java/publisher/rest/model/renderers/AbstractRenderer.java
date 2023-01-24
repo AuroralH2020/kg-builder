@@ -25,7 +25,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Transient;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 @Entity
 @JsonInclude(Include.NON_NULL)

@@ -25,7 +25,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import publisher.rest.model.renderers.AbstractRenderer;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 
 @Entity

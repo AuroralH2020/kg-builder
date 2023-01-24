@@ -1,20 +1,12 @@
 package publisher.rest.model.endpoint;
 
-import java.util.Objects;
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import publisher.rest.exception.EndpointFormatCompatibilityException;
@@ -28,9 +20,9 @@ import spark.Request;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class AbstractEndpoint extends AbstractDatasource implements Endpoint, TesteableEndpoint  {
 
-	
 
-	
+
+
 	@Override
 	public String testEndpoint(Request request) throws EndpointFormatCompatibilityException{
 		try {
@@ -44,7 +36,7 @@ public abstract class AbstractEndpoint extends AbstractDatasource implements End
 		}
 	}
 
-	
+
 
 
 

@@ -2,16 +2,21 @@ package publisher.rest.controller;
 
 import java.util.Map;
 
+import freemarker.template.Configuration;
+import publisher.Publisher;
+import publisher.rest.model.renderers.DefaultFreemarkerRenderer;
 import publisher.rest.model.renderers.FreemarkerRenderer;
 import publisher.rest.model.renderers.ViewRenderer;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.template.freemarker.FreeMarkerEngine;
 
 public class Management {
 
-	private static ViewRenderer render = new FreemarkerRenderer("./src/main/resources/");
-
+	private static DefaultFreemarkerRenderer render = new DefaultFreemarkerRenderer();
+	
+	
 	public static final Route endpoints = (Request request, Response response) -> {
 		response.type("text/html");
 		Map<String,Object> model = render.toModel(EndpointController.service.getAll(), "endpoints");

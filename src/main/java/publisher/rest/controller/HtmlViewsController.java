@@ -6,8 +6,8 @@ import com.google.gson.JsonObject;
 
 import publisher.rest.exception.InvalidRequestException;
 import publisher.rest.model.HtmlView;
-import publisher.service.DAOService;
-import publisher.service.HtmlViewsService;
+import publisher.rest.service.DAOService;
+import publisher.rest.service.HtmlViewsService;
 import spark.Request;
 import spark.Response;
 import spark.Route;

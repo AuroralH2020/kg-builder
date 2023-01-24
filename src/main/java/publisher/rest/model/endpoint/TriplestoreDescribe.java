@@ -12,7 +12,6 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
-import publisher.rest.PublisherRest;
 import publisher.rest.exception.EndpointFormatCompatibilityException;
 import publisher.rest.exception.EndpointRemoteDataException;
 import publisher.rest.exception.InternalServiceException;
@@ -35,6 +34,10 @@ public class TriplestoreDescribe extends Link {
 
 	@JsonProperty
 	protected String publishedURL;
+
+	@JsonProperty
+	protected Boolean replaceUris =true;
+
 
 	public TriplestoreDescribe() {
 		super();
@@ -69,6 +72,16 @@ public class TriplestoreDescribe extends Link {
 		return publishedURL;
 	}
 
+
+
+	public Boolean getReplaceUris() {
+		return replaceUris;
+	}
+
+
+	public void setReplaceUris(Boolean replaceUris) {
+		this.replaceUris = replaceUris;
+	}
 
 
 	public void setPublishedURL(String publishedURL) {
@@ -121,6 +134,7 @@ public class TriplestoreDescribe extends Link {
 		if(this.format.equals(EndpointFormat.MULTIPLE)) { // it can change with content negotiation
 			Query queryBuilt = QueryFactory.create(query);
 			EndpointFormat format = EndpointFormat.retrieveFromSPARQLMime(request.headers("Accept"), queryBuilt);
+
 			queryResultsFormat = EndpointFormat.retrieveSPARQLFormat(format.toString());
 		}else {
 			// fixed result
@@ -128,6 +142,8 @@ public class TriplestoreDescribe extends Link {
 		}
 		System.out.println("TRIPLESTORE: "+query);
 		try {
+			if(replaceUris)
+				return new String(endpoint.query(query, queryResultsFormat).toByteArray()).replace(aliasURL, publishedURL);
 			return new String(endpoint.query(query, queryResultsFormat).toByteArray());
 		} catch (Exception e) {
 			throw new EndpointRemoteDataException("An exception occurred querying the triple store, possible cause: "+e.getMessage());
@@ -138,7 +154,7 @@ public class TriplestoreDescribe extends Link {
 
 	private String changeURL(Request request) {
 		String finalUrl = request.url();
-		if(PublisherRest.CONFIG_MODE && request.queryParams("route")!=null)
+		if(request.queryParams("route")!=null)
 			finalUrl = request.queryParams("route");
 		if(aliasURL!=null && publishedURL!=null)
 			finalUrl = finalUrl.replace(publishedURL, aliasURL);

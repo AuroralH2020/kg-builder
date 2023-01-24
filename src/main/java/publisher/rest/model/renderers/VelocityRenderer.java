@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
 import publisher.rest.exception.RenderTemplateException;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 

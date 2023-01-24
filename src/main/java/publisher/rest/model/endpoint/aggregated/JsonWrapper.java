@@ -2,8 +2,6 @@ package publisher.rest.model.endpoint.aggregated;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.apache.commons.compress.utils.Lists;
@@ -16,22 +14,13 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import publisher.rest.exception.EndpointFormatCompatibilityException;
 import publisher.rest.exception.EndpointRemoteDataException;
@@ -40,7 +29,6 @@ import publisher.rest.model.endpoint.AbstractEndpoint;
 import publisher.rest.model.endpoint.Endpoint;
 import publisher.rest.model.endpoint.EndpointFormat;
 import publisher.rest.model.endpoint.EndpointStatus;
-import publisher.rest.model.renderers.AbstractRenderer;
 import spark.Request;
 
 @Entity
@@ -50,7 +38,7 @@ import spark.Request;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class JsonWrapper extends AbstractDatasource implements AggregatedEndpoint {
 
-	
+
 
 	@NotNull
 	@JsonProperty
@@ -101,7 +89,7 @@ public class JsonWrapper extends AbstractDatasource implements AggregatedEndpoin
 
 		return GSON.toJson(aggregatedMap);
 	}
-	
+
 	private Map<String, String> toMap(Endpoint endpoint, Request request, boolean test) {
 		Map<String, String> map = Maps.newHashMap();
 		try {
@@ -137,10 +125,10 @@ public class JsonWrapper extends AbstractDatasource implements AggregatedEndpoin
 	@Override
 	public void setUrl(String url) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
-	
-	
+
+
+
 
 }

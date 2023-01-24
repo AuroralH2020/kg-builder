@@ -45,10 +45,12 @@ public class Link extends AbstractEndpoint {
 	}
 
 
+	@Override
 	public String getUrl() {
 		return url;
 	}
 
+	@Override
 	public void setUrl(String url) {
 		try {
 			new URL(url);
@@ -62,7 +64,9 @@ public class Link extends AbstractEndpoint {
 	@Override
 	public String getData(Request request) throws EndpointRemoteDataException{
 		try {
-			URL url = new URL(this.url);
+			String arguments = request.queryString();
+			URL url = new URL(this.url+"?"+arguments);
+			
 			URLConnection urlConnection = url.openConnection();
 			String output = new String(urlConnection.getInputStream().readAllBytes());
 

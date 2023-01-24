@@ -5,8 +5,8 @@ import java.util.stream.Collectors;
 
 import publisher.rest.exception.InvalidRequestException;
 import publisher.rest.model.PublisherRoute;
-import publisher.service.DAOService;
-import publisher.service.RouteService;
+import publisher.rest.service.DAOService;
+import publisher.rest.service.RouteService;
 import spark.Request;
 import spark.Response;
 import spark.Route;

@@ -23,7 +23,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotNull;
 import publisher.rest.exception.InvalidRequestException;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 import spark.Request;
 
 
@@ -51,7 +51,7 @@ public class PublisherRoute {
 
 	@NotNull
 	@JsonProperty
-	private Boolean isRegex;
+	private Boolean isRegex =false;
 
 	//@OneToOne(targetEntity= HtmlView.class, fetch = FetchType.EAGER, cascade = CascadeType.MERGE, orphanRemoval = true)
 	@ManyToOne(targetEntity= HtmlView.class, fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
@@ -89,7 +89,7 @@ public class PublisherRoute {
 				Map<String,Object> values = Maps.newHashMap();
 				if(endpoint!=null)
 					values.put("data", endpoint.getData(request));
-				
+
 				return this.view.render.render(values, view.template);
 			}else {
 				throw new InvalidRequestException("The requested domain has no HTML template assigned");
@@ -98,7 +98,7 @@ public class PublisherRoute {
 
 	}
 
-	
+
 
 
 	public HtmlView getView() {

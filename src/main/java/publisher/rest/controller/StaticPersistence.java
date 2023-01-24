@@ -9,7 +9,7 @@ import publisher.rest.model.endpoint.aggregated.AggregatedRDF;
 import publisher.rest.model.endpoint.aggregated.JsonWrapper;
 import publisher.rest.model.endpoint.aggregated.SparqlOverLinks;
 import publisher.rest.model.renderers.AbstractRenderer;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 public class StaticPersistence {
 
@@ -113,7 +113,7 @@ public class StaticPersistence {
 		System.out.println(DAOService.toJson(vdomain));
 		System.out.println(DAOService.toJson(vdomain2));
 
-		
+
 		SparqlOverLinks s4l = new  SparqlOverLinks();
 		s4l.addEndpoint(e4);
 		s4l.setId("s4L0");

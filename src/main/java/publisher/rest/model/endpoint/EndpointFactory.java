@@ -4,11 +4,7 @@ import java.io.IOException;
 
 import com.google.gson.JsonObject;
 
-import publisher.rest.model.endpoint.aggregated.AggregatedJSONLD11;
-import publisher.rest.model.endpoint.aggregated.AggregatedRDF;
-import publisher.rest.model.endpoint.aggregated.JsonWrapper;
-import publisher.rest.model.endpoint.aggregated.SparqlOverLinks;
-import publisher.service.DAOService;
+import publisher.rest.service.DAOService;
 
 public class EndpointFactory {
 
@@ -25,7 +21,7 @@ public class EndpointFactory {
 			return new SPARQL(name, query, format, link, username, password);
 		}
 	}
-	
+
 	public static AbstractEndpoint createEndpoint(String jsonStr) throws IOException {
 		JsonObject json = DAOService.castToJson(jsonStr);
 		if(!json.has("@type"))

@@ -62,14 +62,14 @@ public class SparqlOverLinks extends JsonWrapper{
 	@Override
 	public String testEndpoint(Request request) throws EndpointFormatCompatibilityException {
 		try {
-			
+
 			Query query = QueryFactory.create("SELECT * WHERE { ?s ?p ?o }");
 			EndpointFormat formatProvided = EndpointFormat.JSON;
 			ResultsFormat queryResultsFormat = EndpointFormat.retrieveSPARQLFormat(formatProvided.toString());
 			Model model = ModelFactory.createDefaultModel();
 			this.endpoints.forEach(endpoint -> model.read(new ByteArrayInputStream(endpoint.testData(request).getBytes()), null, endpoint.getFormat().toString()));
 			String data = new String(Sparql.queryModel(query.toString(), model, queryResultsFormat, null).toByteArray());
-			
+
 			EndpointFormat.isFormatCompliant(data, formatProvided); // throws exeception
 			this.status = EndpointStatus.VALID;
 			return data;

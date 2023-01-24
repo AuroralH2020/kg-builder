@@ -1,23 +1,5 @@
 package publisher;
 
-import java.io.IOException;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
-import java.io.PrintStream;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import publisher.fxml.MainGUI;
-import publisher.fxml.PublisherGUIController;
-import publisher.rest.ReaderThread;
 import publisher.rest.ServiceConfiguration;
 import publisher.rest.ServicePublisher;
 import publisher.rest.controller.StaticPersistence;
@@ -29,25 +11,18 @@ public class Publisher  {
 	public static final String CONFIG_PORT_ARGUMENT = "-config.port=";
 	public static final String PUBLISHER_PORT_ARGUMENT = "-publisher.port=";
 	public static final String DEMON_ARGUMENT = "-d";
-	public static Boolean DAEMON_MODE = false;
 	public static int CONFIG_PORT = 4567;
 	public static int PUBLISHER_PORT = 9000;
-	
+	public static String VERSION = "v4.0.0";
 
 	public static void main(String[] args) {
 		// Configuration
 		configure(args);
 		Publisher.startServices();
-		if (!DAEMON_MODE) {
-			MainGUI.main(args);
-		}else {
-			System.out.println(LOGO);
-			System.out.println("Configuration service running on " + "http://localhost:" + CONFIG_PORT);
-			System.out.println("Publisher service running on " + "http://localhost:" + PUBLISHER_PORT);
-			ServiceConfiguration.openInBrowser();
-		}
-
-
+		System.out.println(LOGO);
+		System.out.println("Configuration service running on " + "http://localhost:" + CONFIG_PORT);
+		System.out.println("Publisher service running on " + "http://localhost:" + PUBLISHER_PORT);
+		ServiceConfiguration.openInBrowser();
 
 	}
 
@@ -59,8 +34,8 @@ public class Publisher  {
 		ServicePublisher.runPublishMode(PUBLISHER_PORT);
 		System.out.println("Publishing service up!");
 		// Mock data
-		StaticPersistence.updateMockData();
-		System.out.println("Mocking some data");
+		//StaticPersistence.updateMockData();
+		//System.out.println("Mocking some data");
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -79,7 +54,7 @@ public class Publisher  {
 			+ "  ██╔═══╝ ██║   ██║██╔══██╗██║     ██║╚════██║██╔══██║██╔══╝  ██╔══██╗\n"
 			+ "  ██║     ╚██████╔╝██████╔╝███████╗██║███████║██║  ██║███████╗██║  ██║\n"
 			+ "  ╚═╝      ╚═════╝ ╚═════╝ ╚══════╝╚═╝╚══════╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝\n"
-			+ "                                                              v0.4.0  \n"
+			+ "                                                              "+VERSION+"  \n"
 			+ "                                                          \n" + "";
 
 	private static void configure(String[] args) {
@@ -93,7 +68,7 @@ public class Publisher  {
 					} else if (argument.contains(CONFIG_PORT_ARGUMENT)) {
 						CONFIG_PORT = Integer.valueOf(argument.replace(CONFIG_PORT_ARGUMENT, ""));
 					}
-					DAEMON_MODE = argument.contains(DEMON_ARGUMENT);
+					//DAEMON_MODE = argument.contains(DEMON_ARGUMENT);
 				}
 			}
 		} catch (Exception e) {

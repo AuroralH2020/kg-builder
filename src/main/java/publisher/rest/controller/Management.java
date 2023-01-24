@@ -2,15 +2,10 @@ package publisher.rest.controller;
 
 import java.util.Map;
 
-import freemarker.template.Configuration;
-import publisher.Publisher;
 import publisher.rest.model.renderers.DefaultFreemarkerRenderer;
-import publisher.rest.model.renderers.FreemarkerRenderer;
-import publisher.rest.model.renderers.ViewRenderer;
 import spark.Request;
 import spark.Response;
 import spark.Route;
-import spark.template.freemarker.FreeMarkerEngine;
 
 public class Management {
 

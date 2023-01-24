@@ -6,7 +6,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.helio-ecosystem</groupId>
 	<artifactId>helio-publisher</artifactId>
-	<version>0.4.0</version>
+	<version>4.0.0</version>
 	<name>Helio Publisher</name>
 	<description></description>
 
@@ -94,51 +94,7 @@
 		    <artifactId>commons-codec</artifactId>
 		    <version>1.15</version>
 		</dependency>
-		<!-- JavaFx -->
-		     <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>13</version>
-        </dependency>
-        <dependency>
-		  <groupId>org.openjfx</groupId>
-		  <artifactId>javafx-controls</artifactId>
-		  <version>13</version>
-		</dependency>
-		<dependency>
-		  <groupId>org.openjfx</groupId>
-		  <artifactId>javafx-fxml</artifactId>
-		  <version>13</version>
-		</dependency>
-		<dependency>
-		    <groupId>org.openjfx</groupId>
-		    <artifactId>javafx-graphics</artifactId>
-		    <version>13</version>
-		    <classifier>win</classifier>
-		</dependency>
-		<dependency>
-		    <groupId>org.openjfx</groupId>
-		    <artifactId>javafx-graphics</artifactId>
-		    <version>13</version>
-		    <classifier>linux</classifier>
-		</dependency>
-		<dependency>
-		    <groupId>org.openjfx</groupId>
-		    <artifactId>javafx-graphics</artifactId>
-		    <version>13</version>
-		    <classifier>mac</classifier>
-		</dependency>
-		<dependency>
-		  <groupId>org.openjfx</groupId>
-		  <artifactId>javafx-controls</artifactId>
-		  <version>18.0.2</version>
-		  <classifier>mac-aarch64</classifier>
-		</dependency>
+		
 	</dependencies>
 
 	<build>

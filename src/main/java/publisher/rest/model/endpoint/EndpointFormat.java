@@ -7,6 +7,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.sparql.resultset.ResultsFormat;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import jakarta.validation.constraints.NotNull;
@@ -111,7 +112,7 @@ public enum EndpointFormat {
 						format.toString());
 			} else if (EndpointFormat.isNonRDF(format)) {
 				if (format.equals(EndpointFormat.JSON)) {
-					(new Gson()).fromJson(content, JsonObject.class);
+					isJsonCompliant(content);
 				} else if (format.equals(EndpointFormat.XML)) {
 
 				} else if (format.equals(EndpointFormat.CSV) || format.equals(EndpointFormat.TSV)) {
@@ -127,6 +128,23 @@ public enum EndpointFormat {
 		} catch (Exception e) {
 			throw new EndpointFormatCompatibilityException(
 					"Data provided is not compliant with the format " + format + ", hint: " + e.toString());
+		}
+	}
+	
+	private static boolean isJsonCompliant(String jsonStr) {
+		String error = "";
+		try {
+		(new Gson()).fromJson(jsonStr, JsonObject.class);
+		return true;
+		}catch(Exception e1) {
+			error = e1.getMessage();
+			try {
+				(new Gson()).fromJson(jsonStr, JsonArray.class);
+				return true;
+			} catch(Exception e2) {
+				error += " "+e2.getMessage();
+				throw new EndpointFormatCompatibilityException(error);
+			}
 		}
 	}
 

@@ -13,7 +13,6 @@ import freemarker.template.Configuration;
 import freemarker.template.Version;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
-import publisher.Publisher;
 import publisher.rest.exception.InternalServiceException;
 import publisher.rest.exception.RenderTemplateException;
 import publisher.rest.service.DAOService;

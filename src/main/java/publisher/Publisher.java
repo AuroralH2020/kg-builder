@@ -2,7 +2,6 @@ package publisher;
 
 import publisher.rest.ServiceConfiguration;
 import publisher.rest.ServicePublisher;
-import publisher.rest.controller.StaticPersistence;
 import publisher.rest.controller.ViewRendererController;
 
 public class Publisher  {
@@ -77,6 +76,6 @@ public class Publisher  {
 		}
 	}
 
-	
+
 
 }

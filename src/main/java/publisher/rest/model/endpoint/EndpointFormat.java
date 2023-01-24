@@ -130,7 +130,7 @@ public enum EndpointFormat {
 					"Data provided is not compliant with the format " + format + ", hint: " + e.toString());
 		}
 	}
-	
+
 	private static boolean isJsonCompliant(String jsonStr) {
 		String error = "";
 		try {

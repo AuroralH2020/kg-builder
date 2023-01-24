@@ -10,8 +10,8 @@ import spark.Route;
 public class Management {
 
 	private static DefaultFreemarkerRenderer render = new DefaultFreemarkerRenderer();
-	
-	
+
+
 	public static final Route endpoints = (Request request, Response response) -> {
 		response.type("text/html");
 		Map<String,Object> model = render.toModel(EndpointController.service.getAll(), "endpoints");

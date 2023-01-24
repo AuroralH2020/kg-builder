@@ -1,6 +1,5 @@
 package publisher.rest.model.renderers;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,9 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import freemarker.template.Configuration;
 import freemarker.template.Version;
-import publisher.rest.exception.InternalServiceException;
 import publisher.rest.exception.RenderTemplateException;
-import publisher.rest.service.DAOService;
 import spark.ModelAndView;
 import spark.template.freemarker.FreeMarkerEngine;
 
@@ -21,12 +18,12 @@ public class DefaultFreemarkerRenderer {
 	protected ObjectMapper mapper;
 
 
-	
+
 
 	public DefaultFreemarkerRenderer() {
         Configuration configuration = new Configuration(new Version(2, 3, 23));
 		engine = new FreeMarkerEngine();
-		
+
 		mapper = new ObjectMapper();
 	}
 
@@ -41,11 +38,11 @@ public class DefaultFreemarkerRenderer {
 		return result;
 	}
 
-	
+
 	public String render(Object object, String template) throws RenderTemplateException {
 		return render(toModel(object), template);
 	}
-	
+
 
 	public Map<String, Object> toModel(Object object) {
 		@SuppressWarnings("unchecked")

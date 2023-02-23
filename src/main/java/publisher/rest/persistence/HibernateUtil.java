@@ -16,7 +16,7 @@ public class HibernateUtil {
 			try {
 				// Create registry
 				registry = new StandardServiceRegistryBuilder().configure().build();
-
+				
 				// Create MetadataSources
 				MetadataSources sources = new MetadataSources(registry);
 

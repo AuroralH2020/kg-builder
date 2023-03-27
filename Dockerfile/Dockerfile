@@ -1,11 +1,12 @@
 FROM eclipse-temurin:17
 
-COPY ./helio-publisher-*jar /usr/src/helio-publisher/helio-publisher.jar
-RUN mkdir /usr/src/helio-publisher/views
-COPY ./views/ /usr/src/helio-publisher/views/
-WORKDIR /usr/src/helio-publisher
+COPY ./kg-builder-*jar /usr/src/kgb/kg-builder.jar
+WORKDIR /usr/src/kgb
+RUN mkdir ./views
+RUN mkdir ./db
+
 
 EXPOSE 9000
 EXPOSE 4567
 
-CMD ["java", "-jar", "./helio-publisher.jar"]
+CMD ["java", "-jar", "./kg-builder.jar"]

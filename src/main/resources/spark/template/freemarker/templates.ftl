@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="author" content="Andrea Cimmino">
 
-    <title>Publisher</title>
-    <link href="https://oeg-upm.github.io/helio-publisher/src/main/resources/static/css/favicons/helio-favicon-32x32.png" rel="shortcut icon" type="image/png">
-
+    <title>KG Builder</title>
+   
     <#include "./fragments/css-imports.ftl"/>
   </head>
 
